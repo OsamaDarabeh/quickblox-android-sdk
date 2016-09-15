@@ -112,13 +112,8 @@ public class ChatHelper {
     }
 
     public boolean logout() {
-        try {
-            qbChatService.logout();
-            return true;
-        } catch (SmackException.NotConnectedException e) {
-            e.printStackTrace();
-        }
-        return false;
+        qbChatService.destroy();
+        return true;
     }
 
     public void createDialogWithSelectedUsers(final List<QBUser> users,

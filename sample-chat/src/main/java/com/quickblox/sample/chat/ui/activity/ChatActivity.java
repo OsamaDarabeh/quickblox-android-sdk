@@ -94,7 +94,7 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener 
         qbDialog = (QBDialog) getIntent().getSerializableExtra(EXTRA_DIALOG);
         chatMessageIds = new ArrayList<>();
         initChatConnectionListener();
-
+        ChatHelper.getInstance().addConnectionListener(chatConnectionListener);
         initViews();
     }
 
@@ -115,15 +115,9 @@ public class ChatActivity extends BaseActivity implements OnImagePickedListener 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        ChatHelper.getInstance().addConnectionListener(chatConnectionListener);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
         ChatHelper.getInstance().removeConnectionListener(chatConnectionListener);
+        super.onDestroy();
     }
 
     @Override
